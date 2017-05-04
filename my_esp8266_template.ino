@@ -23,8 +23,6 @@ String myIPAdd = "";
 
 #pragma endregion Globals
 
-
-ESP8266WebServer server(80);
 UpnpBroadcastResponder upnpBroadcastResponder;
 Switch * device = NULL;
 
@@ -128,7 +126,7 @@ void addDevice() {
 
   // Define your switches here. Max 14
   // Format: Alexa invocation name, local port no, on callback, off callback
-  device = new Switch(device_name, 81, deviceOn, deviceOff);
+  device = new Switch(device_name, 80, deviceOn, deviceOff);
 
   upnpBroadcastResponder.addDevice( * device);
 
@@ -161,22 +159,6 @@ void setup() {
   }
 
 
-
-
-
-  server.on("/", []() {
-  });
-  
-  server.on("/on", []() {
-    deviceOn();
-  });
-  
-  server.on("/off", []() {
-    deviceOff();
-  });
-
-  server.begin();
-
 }
 
 
@@ -186,6 +168,5 @@ void loop() {
 
   upnpBroadcastResponder.serverLoop();
   device-> serverLoop();
-  server.handleClient();
 
 }
